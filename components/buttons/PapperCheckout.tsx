@@ -18,8 +18,9 @@ function PapperCheckout({ walletAddress }: PapperCheckoutProps) {
         'content-type': 'application/json',
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_PAPPER_API_KEY}`,
       },
+      // mode: 'no-cors' as RequestMode,
       body: JSON.stringify({
-        contractId: 'f5b49e5b-2027-44c8-892c-911a17dffbea',
+        contractId: '8e68d97e-6d30-4cdc-af84-afe29b60ec7c',
         walletAddress,
         title: 'Test Example 1',
         quantity: 1,
@@ -54,7 +55,10 @@ function PapperCheckout({ walletAddress }: PapperCheckoutProps) {
 
   if (checkoutWithCard) {
     return (
-      <PaperSDKProvider appName="PaperSDKProvider My Web3 App" chainName="Polygon">
+      <PaperSDKProvider
+        appName="PaperSDKProvider My Web3 App"
+        chainName="Polygon"
+      >
         <CheckoutWithCard
           sdkClientSecret={sdkClientSecret}
           onPaymentSuccess={(result) => {

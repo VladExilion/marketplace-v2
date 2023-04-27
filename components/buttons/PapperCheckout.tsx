@@ -26,11 +26,11 @@ function PapperCheckout({ walletAddress }: PapperCheckoutProps) {
         quantity: 1,
         expiresInMinutes: 15,
         metadata: {},
-        mintMethod: {
-          name: 'claimTo',
-          args: { _to: '$WALLET', _quantity: '$QUANTITY', _tokenId: 0 },
-          payment: { currency: 'MATIC', value: '0.001 * $QUANTITY' },
-        },
+        // mintMethod: {
+        //   name: 'claimTo',
+        //   args: { _to: '$WALLET', _quantity: '$QUANTITY', _tokenId: 0 },
+        //   payment: { currency: 'MATIC', value: '0.001 * $QUANTITY' },
+        // },
         feeBearer: 'BUYER',
         sendEmailOnTransferSucceeded: true,
         capturePaymentLater: false,

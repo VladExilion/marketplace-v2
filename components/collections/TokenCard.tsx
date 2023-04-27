@@ -7,6 +7,7 @@ import {
 } from '@reservoir0x/reservoir-kit-ui'
 import AddToCart from 'components/buttons/AddToCart'
 import BuyNow from 'components/buttons/BuyNow'
+import PapperCheckout from 'components/buttons/PapperCheckout'
 import {
   Box,
   Flex,
@@ -318,6 +319,7 @@ export default ({
             gap: 1,
           }}
         >
+          <PapperCheckout walletAddress={address} />
           <BuyNow
             tokenId={token.token?.tokenId}
             collectionId={token.token?.collection?.id}

@@ -54,7 +54,7 @@ function PapperCheckout({ walletAddress }: PapperCheckoutProps) {
 
   if (checkoutWithCard) {
     return (
-      <PaperSDKProvider appName="My Web3 App" chainName="Polygon">
+      <PaperSDKProvider appName="PaperSDKProvider My Web3 App" chainName="Polygon">
         <CheckoutWithCard
           sdkClientSecret={sdkClientSecret}
           onPaymentSuccess={(result) => {

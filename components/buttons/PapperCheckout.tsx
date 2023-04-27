@@ -20,7 +20,7 @@ function PapperCheckout({ walletAddress }: PapperCheckoutProps) {
       },
       // mode: 'no-cors' as RequestMode,
       body: JSON.stringify({
-        contractId: '8e68d97e-6d30-4cdc-af84-afe29b60ec7c',
+        contractId: 'a12cc9ab-9980-4a6c-b00c-87f19c57c9fa',
         walletAddress,
         title: 'Test Example 1',
         quantity: 1,

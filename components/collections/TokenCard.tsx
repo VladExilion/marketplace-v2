@@ -7,7 +7,7 @@ import {
 } from '@reservoir0x/reservoir-kit-ui'
 import AddToCart from 'components/buttons/AddToCart'
 import BuyNow from 'components/buttons/BuyNow'
-import PapperCheckout from 'components/buttons/PapperCheckout'
+import CrossmintPay from 'components/buttons/CrossmintPay'
 import {
   Box,
   Flex,
@@ -53,6 +53,12 @@ export default ({
   const { routePrefix, proxyApi } = useMarketplaceChain()
   const tokenIsInCart = token && token?.isInCart
   const isOwner = token?.token?.owner?.toLowerCase() !== address?.toLowerCase()
+
+  token.market?.floorAsk?.price?.amount &&
+    console.log(
+      token.market?.floorAsk?.price?.amount,
+      String(token.market.floorAsk.price.amount.raw)
+    )
 
   return (
     <Box
@@ -308,42 +314,66 @@ export default ({
       </Link>
       {isOwner && token?.market?.floorAsk?.price?.amount ? (
         <Flex
+          direction="column"
           className="token-button-container"
           css={{
             width: '100%',
             transition: 'bottom 0.25s ease-in-out',
             position: 'absolute',
-            bottom: -44,
+            bottom: -100,
             left: 0,
             right: 0,
             gap: 1,
           }}
         >
-          <PapperCheckout walletAddress={address} />
-          <BuyNow
-            tokenId={token.token?.tokenId}
-            collectionId={token.token?.collection?.id}
-            mutate={mutate}
-            buttonCss={{
-              justifyContent: 'center',
-              flex: 1,
-            }}
-            buttonProps={{
-              corners: 'square',
-            }}
-            buttonChildren="Buy Now"
-          />
-          {addToCartEnabled ? (
-            <AddToCart
-              token={token}
+          {token.token?.tokenId &&
+            token.token?.contract &&
+            token?.token?.kind && (
+              <CrossmintPay
+                totalPrice={String(token.market.floorAsk.price.amount.decimal)}
+                tokenId={token.token.tokenId}
+                contractAddress={token.token.contract}
+                tokenType={token?.token?.kind}
+              />
+            )}
+          <Flex
+          // className="token-button-container"
+          // css={{
+          //   width: '100%',
+          //   transition: 'bottom 0.25s ease-in-out',
+          //   position: 'absolute',
+          //   bottom: -44,
+          //   left: 0,
+          //   right: 0,
+          //   gap: 1,
+          // }}
+          >
+            {/* <PapperCheckout walletAddress={address} /> */}
+            <BuyNow
+              tokenId={token.token?.tokenId}
+              collectionId={token.token?.collection?.id}
+              mutate={mutate}
               buttonCss={{
-                width: 52,
-                p: 0,
                 justifyContent: 'center',
+                flex: 1,
               }}
-              buttonProps={{ corners: 'square' }}
+              buttonProps={{
+                corners: 'square',
+              }}
+              buttonChildren="Buy Now"
             />
-          ) : null}
+            {addToCartEnabled ? (
+              <AddToCart
+                token={token}
+                buttonCss={{
+                  width: 52,
+                  p: 0,
+                  justifyContent: 'center',
+                }}
+                buttonProps={{ corners: 'square' }}
+              />
+            ) : null}
+          </Flex>
         </Flex>
       ) : null}
     </Box>

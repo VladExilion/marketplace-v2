@@ -5,6 +5,7 @@ import { AcceptBid, Bid, BuyNow, List } from 'components/buttons'
 import AddToCart from 'components/buttons/AddToCart'
 import CancelBid from 'components/buttons/CancelBid'
 import CancelListing from 'components/buttons/CancelListing'
+import CrossmintPay from 'components/buttons/CrossmintPay'
 import { Button, Flex, Grid, Tooltip, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
 import { ComponentPropsWithoutRef, FC, useState } from 'react'
@@ -124,6 +125,19 @@ export const TokenActions: FC<Props> = ({
               buttonProps={{ corners: 'square' }}
             />
           </Flex>
+        )}
+      {(!isOwner || is1155) &&
+        isListed &&
+        token?.market?.floorAsk?.price?.amount &&
+        token.token?.tokenId &&
+        token.token?.contract &&
+        token?.token?.kind && (
+          <CrossmintPay
+            totalPrice={String(token.market.floorAsk.price.amount.decimal)}
+            tokenId={token.token.tokenId}
+            contractAddress={token.token.contract}
+            tokenType={token?.token?.kind}
+          />
         )}
       {showAcceptOffer && (
         <AcceptBid
